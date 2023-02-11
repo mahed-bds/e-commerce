@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,13 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.master');
+    return view('admin.layouts.template');
 });
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'role:user'])->name('dashboard');
+
+
+Route::middleware(['auth','role:user'])->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'Dashboard'])->name('dashboard.page');
+    Route::get('/admin/addCategory', [DashboardController::class, 'AddCategory'])->name('addcategory.page');
+    Route::get('/admin/allCategory', [DashboardController::class, 'AllCategory'])->name('allcategory.page');
+    Route::get('/admin/addSubCategory', [DashboardController::class, 'AddSubCategory'])->name('addsubcategory.page');
+   
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
