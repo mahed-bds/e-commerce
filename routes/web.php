@@ -27,9 +27,20 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth','role:user'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'Dashboard'])->name('dashboard.page');
+
     Route::get('/admin/addCategory', [DashboardController::class, 'AddCategory'])->name('addcategory.page');
+
     Route::get('/admin/allCategory', [DashboardController::class, 'AllCategory'])->name('allcategory.page');
+
     Route::get('/admin/addSubCategory', [DashboardController::class, 'AddSubCategory'])->name('addsubcategory.page');
+
+    Route::get('/admin/AllSubCategory', [DashboardController::class, 'AllSubCategory'])->name('allsubcategory.page');
+
+    Route::get('/admin/addProduct', [DashboardController::class, 'AddProduct'])->name('addproduct.page');
+   
+    Route::get('/admin/allProduct', [DashboardController::class, 'AllProduct'])->name('allproduct.page');
+   
+    
    
 });
 

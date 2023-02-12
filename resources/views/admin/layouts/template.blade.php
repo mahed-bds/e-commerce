@@ -135,7 +135,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="{{route('addsubcategory.page')}}" class="menu-link">
+              <a href="{{route('allsubcategory.page')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">All Sub Category</div>
               </a>
@@ -146,13 +146,13 @@
               <span class="menu-header-text">Product</span>
             </li>
             <li class="menu-item">
-              <a href="index.html" class="menu-link">
+              <a href="{{route('addproduct.page')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Add Product</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="index.html" class="menu-link">
+              <a href="{{route('allproduct.page')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">All Product</div>
               </a>

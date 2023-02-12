@@ -19,4 +19,14 @@ class DashboardController extends Controller
     public function AddSubCategory(){
         return view('admin.addSubCategory');
     }
+
+    public function AllSubCategory(){
+        return view('admin.addSubCategory');
+    }
+    public function AddProduct(){
+        return view('admin.addProduct');
+    }
+    public function AllProduct(){
+        return view('admin.allProduct');
+    }
 }
