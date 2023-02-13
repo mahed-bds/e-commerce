@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DatabaseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +26,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'role:user'])->name('dashboard');
 
 
-Route::middleware(['auth','role:user'])->group(function () {
+Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'Dashboard'])->name('dashboard.page');
 
     Route::get('/admin/addCategory', [DashboardController::class, 'AddCategory'])->name('addcategory.page');
@@ -37,11 +38,16 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::get('/admin/AllSubCategory', [DashboardController::class, 'AllSubCategory'])->name('allsubcategory.page');
 
     Route::get('/admin/addProduct', [DashboardController::class, 'AddProduct'])->name('addproduct.page');
-   
+
     Route::get('/admin/allProduct', [DashboardController::class, 'AllProduct'])->name('allproduct.page');
-   
-    
-   
+
+    // controller for database functionality
+
+    Route::Post('/admin/storeCategory', [DatabaseController::class, 'StoreCategory'])->name('storecategory.page');
+    Route::get('/admin/editCategory/{id}', [DatabaseController::class, 'EditCategory'])->name('editcategory.page');
+    Route::post('/admin/updatecategory', [DatabaseController::class, 'UpdateCategory'])->name('updatecategory.page');
+    Route::get('/admin/deletecategory/{id}', [DatabaseController::class, 'DeleteCategory'])->name('deletecategory.page');
+    Route::post('/admin/storesubcategory', [DatabaseController::class, 'StoreSubCategory'])->name('storesubcategory.page');
 });
 
 
