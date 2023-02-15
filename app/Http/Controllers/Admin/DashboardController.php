@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -35,10 +36,14 @@ class DashboardController extends Controller
     }
     public function AddProduct()
     {
-        return view('admin.addProduct');
+
+        $data['subCategories'] = SubCategory::latest()->get();
+        $data['catgories'] = Category::latest()->get();
+        return view('admin.addProduct')->with($data);
     }
     public function AllProduct()
     {
-        return view('admin.allProduct');
+        $allProducts = Product::latest()->get();
+        return view('admin.allProduct', compact('allProducts'));
     }
 }

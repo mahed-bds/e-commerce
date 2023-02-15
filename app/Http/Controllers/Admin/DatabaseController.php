@@ -78,4 +78,40 @@ class DatabaseController extends Controller
         Category::where('id', $category_id)->increment('subcategory_count', 1);
         return redirect()->route('allsubcategory.page')->with('message', 'Sub Category added succesfully');
     }
+
+    //edit subcategory
+    public function editsubcategory($id)
+    {
+
+        $subcategory_info = SubCategory::findOrFail($id);
+        return view('admin.editsubcategory', compact('subcategory_info'));
+    }
+
+    //update sub category
+    public function UpdateSubCategory(Request $request)
+    {
+        $sub_id = $request->subcategory_id;
+
+        $request->validate([
+            'subcategory_name' => 'required|unique:sub_categories',
+        ]);
+
+        SubCategory::findOrFail($sub_id)->update([
+            'subcategory_name' => $request->subcategory_name,
+            'slug' => strtolower(str_replace(' ', '-', $request->subcategory_name))
+
+        ]);
+        return redirect()->route('allsubcategory.page')->with('message', 'sub category updated succesfully');
+    }
+
+    //delete sub category
+
+    public function DeleteSubCategory($id)
+    {
+
+        $category_id = SubCategory::where('id', $id)->value('category_id');
+        Category::where('id', $category_id)->decrement('subcategory_count', 1);
+        SubCategory::findOrFail($id)->delete();
+        return redirect()->route('allsubcategory.page')->with('message', 'sub category deleted succesfully');
+    }
 }

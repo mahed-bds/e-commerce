@@ -13,20 +13,24 @@
                     <tr>
                         <th>ID</th>
                         <th>SUB CATEGORY NAME</th>
-                        <th>CATEGORY Id</th>
+                        <th>CATEGORY</th>
                         <th>PRODUCT</th>
                         <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @foreach ($subCategories as $subCategorie )
+
+                    @foreach($subCategories as $subCategorie )
                     <tr>
 
                         <td>{{$subCategorie->id}}</td>
                         <td>{{$subCategorie->subcategory_name}}</td>
-                        <td>{{$subCategorie->category_id}}</td>
+                        <td>{{$subCategorie->category_name}}</td>
                         <td>{{$subCategorie-> product_count}}</td>
-                        <a>Edit</a>
+                        <td>
+                            <a href="{{route('editsubcategory.page',$subCategorie->id)}}" class="btn btn-primary">Edit</a>
+                            <a href="{{route('deletesubcategory.page',$subCategorie->id)}}" class="btn btn-warning">Delete</a>
+                        </td>
 
                     </tr>
                     @endforeach

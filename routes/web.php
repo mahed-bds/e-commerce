@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DatabaseController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\User\Home;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.layouts.template');
+
+Route::middleware([])->group(function () {
+    Route::get('/', [Home::class, 'Index'])->name('home.page');
 });
 
 
@@ -26,7 +29,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'role:user'])->name('dashboard');
 
 
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'Dashboard'])->name('dashboard.page');
 
     Route::get('/admin/addCategory', [DashboardController::class, 'AddCategory'])->name('addcategory.page');
@@ -48,6 +51,25 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/admin/updatecategory', [DatabaseController::class, 'UpdateCategory'])->name('updatecategory.page');
     Route::get('/admin/deletecategory/{id}', [DatabaseController::class, 'DeleteCategory'])->name('deletecategory.page');
     Route::post('/admin/storesubcategory', [DatabaseController::class, 'StoreSubCategory'])->name('storesubcategory.page');
+
+
+    // edit sub category
+    Route::get('/admin/editsubcategory/{id}', [DatabaseController::class, 'EditSubCategory'])->name('editsubcategory.page');
+    //update sub category
+    Route::post('/admin/updatesubcategory', [DatabaseController::class, 'UpdateSubCategory'])->name('updatesubcategory.page');
+    //delete sub category
+    Route::get('/admin/deletesubcategory/{id}', [DatabaseController::class, 'DeleteSubCategory'])->name('deletesubcategory.page');
+
+    //store product
+    Route::post('/admin/storepoduct/', [ProductController::class, 'StoreProduct'])->name('storeproduct.page');
+
+    //edit all product
+    Route::get('/admin/editallProduct/{id}', [ProductController::class, 'EditProduct'])->name('editallproduct.page');
+    //update product
+    Route::post('/admin/updateProduct/', [ProductController::class, 'UpdateProduct'])->name('updateProduct.page');
+
+    //delete from all product
+    Route::get('/admin/deleteProduct/{id}', [ProductController::class, 'DeleteProduct'])->name('deleteallproduct.page');
 });
 
 
