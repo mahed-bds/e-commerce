@@ -1,3 +1,8 @@
+<!-- getting Category from database -->
+@php
+$categories=App\Models\Category::latest()->get();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,10 +83,12 @@
                 <div class="containt_main">
                     <div id="mySidenav" class="sidenav">
                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                        <a href=" {{asset('home/index.html')}}">Home</a>
-                        <a href=" {{asset('home/fashion.html')}}">Fashion</a>
-                        <a href=" {{asset('home/electronic.html')}}">Electronic</a>
-                        <a href=" {{asset('home/jewellery.html')}}">Jewellery</a>
+
+                        @foreach ($categories as $categorie )
+                        <a href="">{{$categorie->category_name}}</a>
+
+                        @endforeach
+
                     </div>
                     <span class="toggle_icon" onclick="openNav()"><img src="{{asset('home/images/toggle-icon.png')}}"></span>
 
@@ -89,9 +96,10 @@
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            @foreach ($categories as $categorie )
+                            <a class="dropdown-item" href="#">{{$categorie->category_name}}</a>
+                            @endforeach
+
                         </div>
                     </div>
                     <div class="main">
@@ -138,7 +146,9 @@
 
         <!-- banner section end -->
     </div>
-    @yield('main-content')
+    <div class="" style="margin-top: 200px;">
+        @yield('main-content')
+    </div>
     <!-- banner bg main end -->
     <!-- fashion section start -->
 
