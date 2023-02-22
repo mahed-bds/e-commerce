@@ -58,7 +58,30 @@ $categories=App\Models\Category::latest()->get();
                                 <li><a href="#">Gift Ideas</a></li>
                                 <li><a href="#">New Releases</a></li>
                                 <li><a href="#">Today's Deals</a></li>
-                                <li><a href="#">Customer Service</a></li>
+                                <li><a href="{{route('dashboard.page')}}">Admin</a></li>
+                                <li> <div>
+
+                                    {{-- @dd(Auth::check()) --}}
+
+                                    @if(Auth::check() == true)
+
+                                       <!-- Authentication -->
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                    @csrf
+                                
+                                                    <x-responsive-nav-link :href="route('logout')"
+                                                            onclick="event.preventDefault();
+                                                                        this.closest('form').submit();">
+                                                        {{ __('Log Out') }}
+                                                    </x-responsive-nav-link>
+                                                </form>
+                                         </div>
+
+                                         @else
+                                          <a href="{{route('register')}}">Register</a>
+                                          @endif
+                                
+                                </li>
                             </ul>
                         </div>
                     </div>

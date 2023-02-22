@@ -6,6 +6,8 @@
     <div class="alert alert-success">{{session()->get('message')}}</div>
     @endif
     <div class="card">
+
+        <a class="btn btn-success" href="{{ route('export-users') }}">Export Users</a>
         <h5 class="card-header">All Category Information</h5>
         <div class="table-responsive text-nowrap">
             <table class="table">

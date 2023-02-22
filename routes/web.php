@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DatabaseController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\User\Home;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,15 +22,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware([])->group(function () {
     Route::get('/', [Home::class, 'Index'])->name('home.page');
+    Route::get('/home/seeProduct/{id}', [Home::class, 'SeeDetailsProduct'])->name('seemoreproduct.page');
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'role:user'])->name('dashboard');
+// Route::get('/', function () {
+//     return view('admin/layouts/template');
+// })->middleware(['auth', 'role:user'])->name('dashboard');
 
+// for excel 
+Route::get('/file-import', [UserController::class, 'importView'])->name('import-view');
 
-Route::middleware(['auth'])->group(function () {
+Route::get('/export-users', [UserController::class, 'exportUsers'])->name('export-users');
+
+Route::middleware(['auth','role:admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'Dashboard'])->name('dashboard.page');
 
     Route::get('/admin/addCategory', [DashboardController::class, 'AddCategory'])->name('addcategory.page');
@@ -70,6 +76,8 @@ Route::middleware(['auth'])->group(function () {
 
     //delete from all product
     Route::get('/admin/deleteProduct/{id}', [ProductController::class, 'DeleteProduct'])->name('deleteallproduct.page');
+    //see details product
+
 });
 
 
